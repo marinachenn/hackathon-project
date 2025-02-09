@@ -12,4 +12,4 @@ SPOTIFY_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
 # OpenCV model paths
 FACE_PROTO = "models/opencv_face_detector.pbtxt"
 FACE_MODEL = "models/opencv_face_detector_uint8.pb"
-EMOTION_MODEL = "models/emotion_detection_model.pb"
+EMOTION_MODEL = "models/emotion_detection_model.h5"  # Update to .h5 for Keras model
