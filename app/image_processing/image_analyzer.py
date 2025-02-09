@@ -1,21 +1,25 @@
 import cv2
 
-def load_image(image_path):
-    """Load an image from the given path."""
-    return cv2.imread(image_path)
+def analyze_image(image_path):
+    # Load the pre-trained face detection model
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
-def detect_faces(image):
-    """Detect faces in the image using OpenCV."""
-    face_net = cv2.dnn.readNetFromTensorflow(FACE_MODEL, FACE_PROTO)
-    blob = cv2.dnn.blobFromImage(image, 1.0, (300, 300), [104, 117, 123], False, False)
-    face_net.setInput(blob)
-    detections = face_net.forward()
-    return detections
+    # Load the image
+    image = cv2.imread(image_path)
+    if image is None:
+        raise FileNotFoundError(f"Image not found at {image_path}")
 
-def extract_face(image, detection):
-    """Extract a face region from the image."""
-    height, width = image.shape[:2]
-    box = detection[3:7] * np.array([width, height, width, height])
-    (startX, startY, endX, endY) = box.astype("int")
-    face = image[startY:endY, startX:endX]
-    return face
+    # Convert to grayscale for face detection
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Detect faces
+    faces = face_cascade.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+
+    if len(faces) == 0:
+        return None
+
+    # Extract the first face found
+    (x, y, w, h) = faces[0]
+    face_image = image[y:y+h, x:x+w]  # Return BGR image
+
+    return face_image
