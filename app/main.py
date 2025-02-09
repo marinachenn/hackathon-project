@@ -5,7 +5,7 @@ from utils.helpers import display_results
 
 def main():
     # Step 1: Analyze the image
-    image_path = "data/images/ramij.jpg"  # Update with correct file name
+    image_path = "data/images/poop.jpg"  # Update with correct file name
     face_image = analyze_image(image_path)
 
     if face_image is None:
@@ -16,12 +16,12 @@ def main():
     emotion = detect_emotion(face_image)
     print(f"Detected Emotion: {emotion}")
 
-    # Step 3: Generate playlist and set cover image
-    playlist_url = create_playlist(emotion, face_image)
-    print(f"Generated Playlist: {playlist_url}")
+    # Step 3: Generate playlist
+    playlist = create_playlist(emotion, face_image)
+    print(f"Generated Playlist: {playlist}")
 
     # Step 4: Display results
-    display_results(image_path, emotion, playlist_url)
+    display_results(image_path, emotion, playlist)
 
 if __name__ == "__main__":
     main()

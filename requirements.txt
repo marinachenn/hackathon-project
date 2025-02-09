@@ -3,3 +3,6 @@ numpy
 tensorflow
 spotipy
 Pillow
+pandas
+h5py
+deepface
